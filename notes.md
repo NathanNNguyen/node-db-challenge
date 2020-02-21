@@ -7,13 +7,13 @@ project(many) <==> resource(many)
 
 project
 - id
-- name (required)
+- project_name (required)
 - project_desc
 - completed (notNullable, default(false))
 
 resource
 - id
-- name (required, unique)
+- resource_name (required, unique)
 - resource_desc
 
 task
@@ -22,3 +22,7 @@ task
 - notes (addional info)
 - completed (notNullable, default(false))
 - project_id
+
+pro_res
+- project_id
+- resource_id
