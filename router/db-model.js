@@ -12,6 +12,8 @@ module.exports = {
   addTask
 };
 
+// get project/resource/task by ID
+
 function getProductByID(id) {
   return db('project').where({ id }).first();
 };
@@ -23,6 +25,8 @@ function getResourceById(id) {
 function getTaskById(id) {
   return db('task').where({ id }).first();
 }
+
+// get project/resource/task
 
 function getProduct() {
   return db('project');
@@ -38,6 +42,7 @@ function getTask() {
     .select('t.*', 'p.project_name', 'p.project_desc')
 };
 
+// add project/resource/task
 
 function addProduct(projectData) {
   return db('project').insert(projectData)
@@ -54,5 +59,8 @@ function addResource(resourceData) {
 };
 
 function addTask(taskData, project_id) {
-  return db('task').insert({ ...taskData, project_id });
+  return db('task').insert(taskData, project_id)
+    .then(arr => {
+      return getTaskById(arr[0]);
+    })
 }
