@@ -14,6 +14,16 @@ router.get('/', async (req, res) => {
   }
 });
 
+router.get('/:id', async (req, res) => {
+  try {
+    const task = await db.getTaskById(req.params.id);
+    res.json(task)
+  }
+  catch (err) {
+    res.status(500).json({ message: `Task must have a valid id`, err })
+  }
+})
+
 router.post('/', async (req, res) => {
   const task = req.body
   try {

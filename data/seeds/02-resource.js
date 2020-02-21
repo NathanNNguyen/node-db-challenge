@@ -5,9 +5,9 @@ exports.seed = function (knex) {
     .then(function () {
       // Inserts seed entries
       return knex('resource').insert([
-        { resource_name: 'Resource 1', resource_desc: 'Knexjs.org' },
-        { resource_name: 'Resource 2', resource_desc: 'SqliteStudio' },
-        { resource_name: 'Resource 3', resource_desc: 'Insomnia/Postman' }
+        { resource_name: 'Vscode', resource_desc: 'Install VSCode to work on project' },
+        { resource_name: 'Lambda Help Channel', resource_desc: 'Reach out for help from channel' },
+        { resource_name: 'JavaScript', resource_desc: 'Use JavaScript for these projects' }
       ]);
     });
 };

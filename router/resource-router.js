@@ -14,6 +14,16 @@ router.get('/', async (req, res) => {
   }
 });
 
+router.get('/:id', async (req, res) => {
+  try {
+    const resource = await db.getResourceById(req.params.id);
+    res.json(resource);
+  }
+  catch (err) {
+    res.status(500).json({ message: `Resource must have a valid ID` })
+  }
+})
+
 router.post('/', async (req, res) => {
   const resource = req.body;
   try {
@@ -27,6 +37,6 @@ router.post('/', async (req, res) => {
   catch (err) {
     res.status(500).json({ message: `Can't add resource`, err })
   }
-})
+});
 
 module.exports = router;

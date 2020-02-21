@@ -14,6 +14,16 @@ router.get('/', async (req, res) => {
   }
 });
 
+router.get('/:id', async (req, res) => {
+  try {
+    const project = await db.getProductByID(req.params.id)
+    res.json(project);
+  }
+  catch (err) {
+    res.status(500).json({ message: 'Error while getting project', err })
+  }
+});
+
 router.post('/', async (req, res) => {
   const project = req.body;
   try {
@@ -28,17 +38,6 @@ router.post('/', async (req, res) => {
     res.status(500).json({ message: `Can't add project`, err })
   }
 });
-
-router.get('/:id', async (req, res) => {
-  try {
-    const project = await db.getProductByID(req.params.id)
-    res.json(project);
-  }
-  catch (err) {
-    res.status(500).json({ message: 'Error while getting project', err })
-  }
-});
-
 
 // add task based on specified project (id)
 router.post('/:id/task', async (req, res) => {

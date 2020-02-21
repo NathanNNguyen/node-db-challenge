@@ -9,5 +9,4 @@ server.use('/api/project', projectRouter);
 server.use('/api/resource', resourceRouter);
 server.use('/api/task', taskRouter);
 
-
 module.exports = server;
