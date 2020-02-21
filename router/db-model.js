@@ -33,7 +33,9 @@ function getResource() {
 };
 
 function getTask() {
-  return db('task');
+  return db('task as t')
+    .join('project as p', 't.project_id', 'p.id')
+    .select('t.*', 'p.project_name', 'p.project_desc')
 };
 
 
@@ -52,5 +54,5 @@ function addResource(resourceData) {
 };
 
 function addTask(taskData, project_id) {
-  return db('task').insert(...taskData, project_id);
+  return db('task').insert({ ...taskData, project_id });
 }

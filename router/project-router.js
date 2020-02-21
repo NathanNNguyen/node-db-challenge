@@ -37,6 +37,23 @@ router.get('/:id', async (req, res) => {
   catch (err) {
     res.status(500).json({ message: 'Error while getting project', err })
   }
+});
+
+router.post('/:id/task', async (req, res) => {
+  const { id } = req.params;
+  const task = req.body;
+  const project = await db.getProductByID(id);
+  try {
+    if (project) {
+      const inserted = await db.addTask(task, id);
+      res.status(201).json(inserted);
+    } else {
+      res.status(404).json({ message: 'Could not find project with given id.' })
+    }
+  }
+  catch (err) {
+    res.status(500).json({ message: 'Error while adding task to project', err })
+  }
 })
 
 module.exports = router;
