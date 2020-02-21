@@ -12,6 +12,21 @@ router.get('/', async (req, res) => {
   catch (err) {
     res.status(500).json({ message: `Can't get all resource`, err })
   }
+});
+
+router.post('/', async (req, res) => {
+  const resource = req.body;
+  try {
+    if (!resource.resource_name) {
+      res.status(400).json({ message: 'Missing resource_name' })
+    } else {
+      const inserted = await db.addResource(resource);
+      res.json(inserted)
+    }
+  }
+  catch (err) {
+    res.status(500).json({ message: `Can't add resource`, err })
+  }
 })
 
 module.exports = router;
