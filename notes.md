@@ -23,6 +23,6 @@ task
 - completed (notNullable, default(false))
 - project_id
 
-pro_res
+ps
 - project_id
 - resource_id
