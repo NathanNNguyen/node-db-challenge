@@ -14,24 +14,29 @@ router.get('/', async (req, res) => {
   }
 });
 
-router.post('/', validateName, async (req, res) => {
+router.post('/', async (req, res) => {
   const project = req.body;
   try {
-    const inserted = await db.addProduct(project);
-    res.status(201).json(inserted);
+    if (!project.project_name) {
+      res.status(400).json({ message: 'Missing product_name' });
+    } else {
+      const inserted = await db.addProduct(project);
+      res.status(201).json(inserted);
+    }
   }
   catch (err) {
     res.status(500).json({ message: `Can't add project`, err })
   }
 });
 
-// middleware
-function validateName(req, res, next) {
-  const project = req.body;
-  if (!project.project_name) {
-    res.status(400).json({ message: 'Missing product_name' });
-  } else {
-    next()
+router.get('/:id', async (req, res) => {
+  try {
+    const project = await db.getProductByID(req.params.id)
+    res.json(project);
   }
-}
+  catch (err) {
+    res.status(500).json({ message: 'Error while getting project', err })
+  }
+})
+
 module.exports = router;

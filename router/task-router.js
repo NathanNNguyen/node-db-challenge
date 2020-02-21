@@ -17,10 +17,11 @@ router.get('/', async (req, res) => {
 router.post('/', async (req, res) => {
   const task = req.body
   try {
-
+    const inserted = db.addTask(task, task.project_id);
+    res.json(inserted);
   }
-  catch(err) {
-    res.status(500).json({message: `Can't add task`, err})
+  catch (err) {
+    res.status(500).json({ message: `Can't add task`, err })
   }
 })
 
